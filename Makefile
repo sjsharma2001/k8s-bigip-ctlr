@@ -11,9 +11,23 @@ export BUILD_INFO := $(shell ./build-tools/version-tool build-info)
 
 GO_BUILD_FLAGS=-v -ldflags "-extldflags \"-static\" -X main.version=$(BUILD_VERSION) -X main.buildInfo=$(BUILD_INFO)"
 
-# Allow users to pass in BASE_OS build options (alpine or rhel7)
+# Allow users to pass in BASE_OS build options (alpine or rhel7) 
 BASE_OS ?= alpine
 
+# This is for builds not triggered through Travis CI 
+ifndef LICENSE_STRICT
+	LICENSE_STRICT=false
+endif
+
+# Flag for level of license approval check 
+# (default if no flag is passed is devel)
+LIC_FLAG=
+
+# If strict license approval check is desired, pass the corresponding flag 
+# to Attributions Generator on command line
+ifeq ($(LICENSE_STRICT), true)
+	LIC_FLAG=--al release
+endif
 
 all: local-build
 
@@ -135,7 +149,8 @@ pip_attributions.json: always-build
 		--requirements=requirements.txt \
 		--project-path=$(CURDIR) \
 
+
 docs/_static/ATTRIBUTIONS.md: flatfile_attributions.json  golang_attributions.json  pip_attributions.json
 	./build-tools/attributions-generator.sh \
-		node /frontEnd/frontEnd.js --pd $(CURDIR)
+		node /frontEnd/frontEnd.js --pd $(CURDIR) $(LIC_FLAG)
 	mv ATTRIBUTIONS.md $@
