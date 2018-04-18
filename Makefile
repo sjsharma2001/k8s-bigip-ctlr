@@ -136,6 +136,9 @@ pip_attributions.json: always-build
 		--project-path=$(CURDIR) \
 
 docs/_static/ATTRIBUTIONS.md: flatfile_attributions.json  golang_attributions.json  pip_attributions.json
+        ifeq ($(LICENSE_STRICT), "true")
+          LICENSE_STRICT_FLAG = "--al release"
+        endif
 	./build-tools/attributions-generator.sh \
-		node /frontEnd/frontEnd.js --pd $(CURDIR)
+		node /frontEnd/frontEnd.js --pd $(CURDIR) $(LICENSE_STRICT_FLAG)
 	mv ATTRIBUTIONS.md $@
