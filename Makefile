@@ -135,10 +135,21 @@ pip_attributions.json: always-build
 		--requirements=requirements.txt \
 		--project-path=$(CURDIR) \
 
+ifndef $(LICENSE_STRICT)
+LICENSE_STRICT="false"
+endif
+
+ifeq ($(LICENSE_STRICT), "true")
+LICENSE_STRICT_FLAG = "--al release"
+endif
+
 docs/_static/ATTRIBUTIONS.md: flatfile_attributions.json  golang_attributions.json  pip_attributions.json
-        ifeq ($(LICENSE_STRICT), "true")
-          LICENSE_STRICT_FLAG = "--al release"
-        endif
+	@echo "*****LICENSE_STRICT=" 
+	@echo $(LICENSE_STRICT)
+	@echo "*****END LICENSE_STRICT" 
+	@echo "*****LICENSE_STRICT_FLAG=" 
+	@echo $(LICENSE_STRICT_FLAG)
+	@echo "*****END LICENSE_STRICT_FLAG" 
 	./build-tools/attributions-generator.sh \
 		node /frontEnd/frontEnd.js --pd $(CURDIR) $(LICENSE_STRICT_FLAG)
 	mv ATTRIBUTIONS.md $@
