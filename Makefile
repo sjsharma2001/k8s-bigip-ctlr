@@ -135,7 +135,7 @@ pip_attributions.json: always-build
 		--requirements=requirements.txt \
 		--project-path=$(CURDIR) \
 
-ifndef $(LICENSE_STRICT)
+ifndef LICENSE_STRICT
 LICENSE_STRICT="false"
 endif
 
