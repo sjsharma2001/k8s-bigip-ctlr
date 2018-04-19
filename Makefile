@@ -136,11 +136,24 @@ pip_attributions.json: always-build
 		--project-path=$(CURDIR) \
 
 ifndef LICENSE_STRICT
-LICENSE_STRICT="false"
+	echo "***LICENSE_STRICT not defined, setting to false"
+	LICENSE_STRICT="false"
+else
+	echo "***LICENSE_STRICT defined, value below"
+	echo $(LICENSE_STRICT)
+	echo "******"
 endif
 
 ifeq ($(LICENSE_STRICT), "true")
-LICENSE_STRICT_FLAG = "--al release"
+	echo "***LICENSE_STRICT ifeq true suceeds"
+	echo $(LICENSE_STRICT)
+	echo "******" 
+	LICENSE_STRICT_FLAG="--al release"
+else
+	echo "***LICENSE_STRICT ifeq true fails"
+	echo $(LICENSE_STRICT)
+	echo "******" 
+	LICENSE_STRICT_FLAG=""
 endif
 
 docs/_static/ATTRIBUTIONS.md: flatfile_attributions.json  golang_attributions.json  pip_attributions.json
