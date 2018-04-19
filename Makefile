@@ -144,7 +144,7 @@ else
 	echo "******"
 endif
 
-ifeq ($(LICENSE_STRICT), "true")
+ifeq ($(LICENSE_STRICT), true)
 	echo "***LICENSE_STRICT ifeq true suceeds"
 	echo $(LICENSE_STRICT)
 	echo "******" 
