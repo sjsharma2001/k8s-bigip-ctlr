@@ -14,6 +14,7 @@ pipeline {
       steps {
         sh '''#!/usr/bin/env bash
           export BASE_OS=rhel7
+          echo "^^^^^TEST_GIT_COMMIT = " $TEST_GIT_COMMIT
           echo "~~~~~GIT_COMMIT = " $GIT_COMMIT
           export GIT_COMMIT=${GIT_COMMIT:-$(git rev-parse HEAD)}
           echo "*****GIT_COMMIT = " $GIT_COMMIT
