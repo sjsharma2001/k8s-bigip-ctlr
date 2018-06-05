@@ -14,10 +14,7 @@ pipeline {
       steps {
         sh '''#!/usr/bin/env bash
           export BASE_OS=rhel7
-          echo "^^^^^CONFIG_GIT_COMMIT = " $CONFIG_GIT_COMMIT
-          echo "~~~~~GIT_COMMIT = " $GIT_COMMIT
           export GIT_COMMIT=${CONFIG_GIT_COMMIT:-$(git rev-parse HEAD)}
-          echo "*****GIT_COMMIT = " $GIT_COMMIT
           export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           export BUILD_VERSION=$(build-tools/version-tool version)
           export BUILD_INFO=$(build-tools/version-tool build-info)
