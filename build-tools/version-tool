@@ -275,14 +275,14 @@ class VersionInfo(object):
 def print_docker_build_args(args):
     """Create labels for Docker container."""
     ver = VersionInfo(args.version_file)
+
+    version = ver.version_str()
     if os.environ.get('OVERRIDE_VERSION', None):
-        print '***** OVERRIDE_VERSION is set'
-        print os.environ['OVERRIDE_VERSION']
-    else:
-        print '***** OVERRIDE_VERSION is NOT set'
+        version = os.environ['OVERRIDE_VERSION']
+
     labels = {
         'scm_version': ver.format('{sha}'),
-        'version': ver.version_str(),
+        'version': version,
     }
 
     ret = []
