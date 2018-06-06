@@ -275,6 +275,7 @@ class VersionInfo(object):
 def print_docker_build_args(args):
     """Create labels for Docker container."""
     ver = VersionInfo(args.version_file)
+    print '***** OVERRIDE_VERSION = ' $OVERRIDE_VERSION
     labels = {
         'scm_version': ver.format('{sha}'),
         'version': ver.version_str(),

@@ -16,6 +16,7 @@ pipeline {
           export BASE_OS=rhel7
           export GIT_COMMIT=${CONFIG_GIT_COMMIT:-$(git rev-parse HEAD)}
           echo "***** GIT_COMMIT = " $GIT_COMMIT
+          echo "***** OVERRIDE_VERSION = " $OVERRIDE_VERSION
           export GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           export BUILD_VERSION=$(build-tools/version-tool version)
           export BUILD_INFO=$(build-tools/version-tool build-info)
